@@ -1,0 +1,188 @@
+Artificer
+	Artificers are powerful magic wielders who are experts at creating and forging magic items and potions to assist their allies or bring doom to their foes.
+Armorer(TC) - Fuse powerful magic with your armor to create exoskeleton suits
+Alchemist(TC) - A master of potion-making to heal, assist, and destroy
+Artillerist(TC) - Control the battlefield by summoning powerful magic cannons
+Battle Smith(TC) - Creating magical machines that fight and protect others.
+
+Barbarian
+	Barbarians are powerful warriors whose strength comes from their rage. Able to use their anger as a weapon. The subclass represents different paths they walk, which teaches them special ways to use their anger.
+Berserker(PH) - Fall into your rage entirely to deliver a tide of powerful blows.
+Totem Warrior(PH) - Your rage comes from the animal spirits of the world who aid.
+Ancestral Guardian(XG) - Your rage is the combination of all your ancestors. [revised in 2025 UA as Path of the Spiritual Guardian]
+Storm Herald(XG)- Your rage is second only to that of Mother Nature, who joins you. [revised in the 2025 Subclasses Update UA]
+Zealot(XG) - The rage acts as a gift from the gods. You are their champion.
+Beast(TC) - Gifts from the beasts of this world as you manifest their power.
+Wild Soul(TC) - Your rage is strong enough to shatter the walls of magic.
+Battlerager(SC) - Giving yourself over to your rage, make your body a weapon
+Path of Unlight (UA) - Unleash your inner light as blazing fury
+
+Bard
+	A poet, a singer, a storyteller. There are those that seek to bring wonder to the world, and their magic comes from their emotions from the stories they tell and the songs they sing. Bards have different colleges that they follow to hone their skills in magic. 
+College of Lore(PH) - A way to keep the stories of history and civilizations alive
+College of Valor(PH) - Those that tell vibrant and powerful war stories.
+College of Creation(TC) - Your music and stories shape the very fabric of reality
+College of Glamor(XG) - Blessed by the Feywild, your looks are rivaled by none.
+College of Swords(XG) - Become the best and most elegant sword fighter in the world.
+College of Whispers(XG) - The hypnotic power of bards can be used for stealth 
+College of Eloquence(TC) - Words have power; use them to shape any situation
+College of Spirits(RL) - The dead tell stories and have experiences that you can draw on.
+College of the Moon(UA) - Songs sung under moonlight, and what the moonlight does to the singer.
+
+Cleric
+	Ideas are not just a simple blueprint for a machine or an urge to buy new farming equipment. Ideas are immortal things that can topple empires and bring justice to those that threaten others. Ideas are some of the most powerful forces in the universe. All it needs is a champion, and clerics are those champions. Usually following a pantheon or a god/goddess, they devote their lives to serving that idea.
+Knowledge Domain(PH) - Serve the idea that knowledge is power, and it must endure
+Life Domain(PH) - Serve the idea of life; every life and living thing is a wonder
+Light Domain(PH) - Serve the idea of light; it will burn back the forces of shadow
+Nature Domain(PH) - Serve the idea of nature; the natural world can’t ever fall.
+Tempest Domain(PH) - Serve the idea of change, storms are powerful and resistant
+Trickery Domain(PH) - Serve the idea of deception, pranks, or more keeps the world moving
+War Domain(PH) - Serve the idea of war, whether it’s war for honor or power. 
+Death Domain(DM) - Serve the idea of death; everything must eventually end.
+Twilight Domain(TC) - Serve the idea of balance; those that attempt to disrupt it must be stopped
+Order Domain(TC) - Serve the idea of order and law; you are the voice of justice.
+Forge Domain(XG) - Serve the idea of creation; the forges you touch will never fail
+Grave Domain(XG) - Serve the idea of life and death; the balance must be maintained
+Peace Domain(TC) - Serve the idea of peace; violence is almost never the answer.
+Arcane Domain(SC) - Serve the idea of magic; magic is a power and a wonder
+Pestilence Domain(UA) - Serve through disease, poison and decay; the quiet, patient ending
+
+Druid
+	Druids are protectors of nature. They are the embodiment of its wrath and its beauty. They have the ability to shapeshift into creatures and special skills, based on which circle they follow, which is a further representation of different parts of nature.
+Circle of the Land(PH) - Grown within a certain biome, your power comes from there.
+Circle of the Moon(PH) - Like a werewolf, your power is based on changing forms.
+Circle of Dreams(XG) - The Feywild’s nature has blessed you with the power to heal.
+Circle of the Shepherd(XG) - Like a shepherd, you protect the animals of the world.
+Circle of Spores(TC) - Mycelium has many uses and abilities, including raising the dead
+Circle of Stars(TC) - The answer and guidance can always be found in the stars
+Circle of Wildfire(TC) - Wildfires bring about change, ecosystems always revive.
+Circle of the Titan(UA) - Grow to massive proportions for physical destruction
+
+Fighter
+	Swordsman ship, spears, shields, bows and crossbows. All these bring about images of fighters. Warriors who hone their combative ability to a deadly skill that rivals none. Some use magic to enhance their ability, while others crush magic in favor of pure muscle or acrobatic skills.
+Champion(PH) - Hone your martial ability into an incredibly deadly skill with constant crits
+Battle Master(PH) - Use the art of war and tactics to gain advantages and command to victory
+Eldritch Knight(PH) - Learning wizard-like spells to gain the upperhand in any fight.
+Arcane Archer(XG) - Mix magic with your arrows to rain literal fire down upon your foes
+Cavalier(XG) - You will never break; your skill, while mounted or not, can not be beaten. [revised in the 2025 Subclasses Update UA]
+Samurai(XG) - Your fighting spirit will allow you to rain a hurricane of deadly blows.
+Psi Warrior(TC) - Blessed with psychic energy, your mind is sharpened just like your weapon.
+Rune Knight(TC) - Learn the ancient power of Giants and their powerful magic runes.
+Echo Fighter(WM) - Using magical energy, create an “echo” to fight with you.
+Purple Dragon Knight(SC) - A warrior that braves any battle through inspiration
+Hell Knight(UA) - Wield hellfire weapons and inflict wounds that refuse to close
+
+Monk
+	Kung Fu, Karate, Drunken Fighting, Dr. Strange, ect. All of these are what the D&D Monks train in. Whether it’s using your fist, spirit, ki or weapons that are nothing but an extension of your will. Monks can deliver a storm of powerful melee attacks.
+Way of the Open Hand(PH) - Use your fists and palms to annihilate your foe.
+Way of the Shadow(PH) - Usually called, ninjas and so forth. Their fists strike from the shadow
+Way of the Four Elements(PH) - Control all 4 elements, earth, water, fire and wind in your ways
+Way of Mercy(TC) - Your ki and spirit is meant to heal wounds, not create them.
+Way of the Astral Self(TC) - Your spirit becomes an entity around you to help you.
+Way of the Drunken Master(XG) - Confuse your foes with unpredictable attacks. [revised in 2025 UA as Warrior of Intoxication]
+Way of the Kensei(XG) - Your weapons become an extension of yourself. A form of art 
+Way of the Sun Soul(XG) - Your soul and will is so powerful that it can ignite in fire.
+Way of Long Death(SC) - Your soul and fists become the tools of death
+Way of the Ascendant Dragon (FD) - Following the way of dragons, your spirit manifests their power
+Paladin
+	Paladins, much like clerics, hold up ideas. However, they serve tenants with a multitude of ideas. Some of joy, others of light and conquest. Paladin holds an Oath which is the representation of said ideas.
+Oath of Devotion(PH) - Light, Lawful, Honesty, the pure holy warrior
+Oath of the Ancients(PH) - Joy and love, the ancients blessed this warrior with nature
+Oath of Vengeance(PH) - Anger and vengeance, something bad pushed this warrior to seek vengeance
+Oathbreaker(DM) - They broke an oath long ago and are cursed for it
+Oath of Conquest(XG) - Destruction and Victory, nothing will stop this warrior.
+Oath of Redemption(XG) - A warrior that uses words instead of the sword
+Oath of Glory(TC) - A warrior that is destined for glory, fight for your destiny
+Oath of the Watchers(TC) - A warrior sworn to fight anything supernatural.
+Oath of the Crown(SC) - A warrior that serves a crown or kingdom
+Oath of the Noble Genies(UA) - A bargain struck with something vast, proud and very old
+
+Ranger
+	Rangers are those that wander and live within the wild. Their skill to survive in harsh nature places is bested by none. Many rangers take on a role, usually in various ways to hunt special types of monsters.
+Fey Wanderer(TC) - With the power of fey on their side, these rangers charm their foes
+Swarmkeeper(TC) - Insects, pixies or a similar swarm creature. These rangers take care of them
+Gloom Stalker(XG) - These hunters wander in the shadows to defeat creatures of the night
+Horizon Walker(XG) - These hunters seek out creatures from other worlds to end them
+Monster Slayer(XG) - These warriors hunt down to slay powerful monsters
+Hunter(PH) - A warrior who hones different parts of their fighting style to hunt
+Beast Master(PH) - A warrior who has gained the assistance of a spiritual beast.
+Drakewarden (FD) - A warrior who has gained the assistance of a powerful drake that follows them
+Winter Walker(UA) - A hunter of the deep cold, and of whatever survives out in it
+
+Rogue
+ Rogues are talented individuals who hone skills of the unethical or criminal. A rogue's skill in thieving, killing, etc. is rivaled by none as they become experts in their field.
+Thief(PH) - Thieves are rogues who are experts at breaking into things and stealing
+Assassin(PH) - Assassins are masters at killing while unseen
+Arcane Trickster(PH) - Tricksters mix magic into their skills, enhancing them 
+Inquisitive(XG) - Like a detective, inquisitive rogues watch their targets and use their patterns
+Mastermind(XG) - These rogues are deadly smart, using their intelligence to fight
+Scout(XG) - Ambushing and Stealthing with speed, these rogues are always ahead
+Swashbuckler(XG) - Rogues that are fast and light on their feet, impossible to pin
+Phantom(TC) - Shadow magic is within the hearts of these rogues, stealing souls.
+Soulknife(TC) - Blessed with a psychic mind, their roguish skills are enhanced
+Scion of the Three(UA) - Marked by a dark trinity that wants results, and rewards them
+
+Sorcerer
+ Usually born with magical energy running through their veins. Sorcerers are what people usually think of when the image of a "spellslinger" comes to mind. Their magical force is linked to their emotions and mind.
+Aberrant Mind(TC) - Cursed or blessed with a powerful psychic mind, their magic comes from their head
+Clockwork Soul(TC) - The balance of the universe flows through their veins
+Divine Soul(XG) - With blood from something Divine, gods watch them with interest
+Shadow Magic(XG) - Cursed with shadow magic, their power manipulates the shadows
+Storm Sorcery(XG) - With the blood of a powerful hurricane, storms are a comfort
+Draconic Bloodline(PH) - With the ancestors of dragons, they show draconic natures
+Wild Magic(PH) - The chaos of the universe flows through their veins.
+Demonic Sorcery(UA) - Channel corruptive demon magic that was never meant to be channelled
+Spellfire Sorcery(UA) - Raw silver fire that devours magic and cannot be taught
+
+Warlock
+  With the dark stereotype of being evil, warlocks are feared. Usually, these are mortals who have signed a magical contract with immortal entities, in which the entity will grant them magical power in exchange for servitude.
+The Archfey(PH) - A magical pact with an Archfey of the feywild
+The Fiend(PH) - A magical pact with a demonic or devilish entity
+The Great Old One(PH) - An ancient and powerful unknown entity from worlds beyond
+The Celestial(XG) - A magical pact with an entity of good, law, and order.
+Undying(SC) - A magical pact with an entity that represents the dead.
+The Hexblade(XG) - A magical pact with an entity that is or gifted a powerful weapon.
+The Fathomless(TC) - A magical pact with a creature of the world's deep oceans.
+The Genie(TC) - A magical pact with a powerful elemental.
+The Undead(RL) - A magical pact with a powerful deathless being that defies the cycle
+
+
+
+
+Wizard
+   Wizards are considered the Apex of the Arcane and spend a lot of their life in education and schooling. With their massive knowledge of magic, they know exactly how to shape magical forces to do what they desire. Most of the time, wizards tend to walk down a school of magic to master in.
+School of Abjuration(PH) - Study the defensive powers of magic
+School of Conjuration(PH) - Study the ways to control the creatures you summon
+School of Divination(PH) - Study the ways magic can show you the future and past
+School of Enchantment(PH) - Study the ways that magic can bend the minds of others
+School of Evocation(PH) - Study the ways that magic can destroy and offense
+School of Illusion(PH) - Study the ways that magic can make the eyes of others lie
+School of Necromancy(PH) - Study the forces of life and death
+School of Transmutation(PH) - Study the ways magic can shift reality
+School of Graviturgy(WM) - Study the ways magic can shift and manipulate gravity
+School of Chronurgy(WM) - Study the ways magic can shift and bend time itself
+War Magic(XG) - Study the ways magic can be used in combat and how it can be stored
+Bladesinging(TC) - Study a tradition of wizardry that incorporates swordplay and dance.
+Order of Scribes(TC) - Study the ways magic can be enhanced through books of power
+
+// The 2025-26 UA subclasses are now filed under their own classes above,
+// tagged (UA). Revised legacy options are marked in brackets on the line
+// they revise. Nothing from the list below is left unplaced.
+//
+//   Villainous Options UA ....... Pestilence Domain (Cleric)
+//                                 Circle of the Titan (Druid)
+//                                 Hell Knight (Fighter)
+//                                 Demonic Sorcery (Sorcerer)
+//   Forgotten Realms UA ......... College of the Moon (Bard)
+//                                 Oath of the Noble Genies (Paladin)
+//                                 Winter Walker (Ranger)
+//                                 Scion of the Three (Rogue)
+//                                 Spellfire Sorcery (Sorcerer)
+//   Subclasses Update UA ........ Spiritual Guardian (was Ancestral Guardian)
+//                                 Storm Herald (Barbarian, revised)
+//                                 Cavalier (Fighter, revised)
+//                                 Warrior of Intoxication (was Drunken Master)
+//
+// Not subclasses, so not filed above — the Villainous Options UA also
+// carried general "paths of villainy" FEATS: Path of the Death Knight
+// and Path of the Lich. Worth remembering for late-campaign villains.

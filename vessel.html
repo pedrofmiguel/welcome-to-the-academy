@@ -1,0 +1,1284 @@
+<title>The Vessel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Eczar:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap">
+
+<style>
+/* ── tokens ─────────────────────────────────────────────────────────
+   Dark-first: the bare :root is the complete lamp-interior palette.
+   Light redefines the same tokens twice, so an explicit choice wins
+   over the OS in both directions.                                    */
+:root {
+  --void:      #070B14;
+  --deep:      #0C1424;
+  --surface:   #121D31;
+  --surface-2: #18263E;
+  --line:      #24364F;
+  --line-soft: #1A2740;
+  --text:      #E4EAF4;
+  --dim:       #8C9BB4;
+  --faint:     #5E6E87;
+  --brass:     #E0B44C;
+  --brass-dim: #96781F;
+  --cyan:      #5FD3E0;
+  --indigo:    #4D7FD6;
+  --ember:     #D2603F;
+  --smoke-a:   #1C4E8A;
+  --smoke-b:   #155E6B;
+  --smoke-c:   #221B52;
+  --smoke-op:  0.55;
+  --shadow:    0 18px 48px -24px rgba(0,0,0,.9);
+
+  --f-display: "Eczar", "Iowan Old Style", Georgia, serif;
+  --f-body:    "Spectral", Georgia, "Times New Roman", serif;
+  --f-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --measure: 34rem;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --void:      #E4E9F1;
+    --deep:      #EDF1F7;
+    --surface:   #FFFFFF;
+    --surface-2: #E8EEF7;
+    --line:      #CAD5E4;
+    --line-soft: #DCE4EF;
+    --text:      #0F1724;
+    --dim:       #56657C;
+    --faint:     #8695AC;
+    --brass:     #8A6512;
+    --brass-dim: #BFA05A;
+    --cyan:      #16697A;
+    --indigo:    #2A4E96;
+    --ember:     #A63C21;
+    --smoke-a:   #9DB8DC;
+    --smoke-b:   #A6CBD3;
+    --smoke-c:   #B4AEDA;
+    --smoke-op:  0.40;
+    --shadow:    0 14px 38px -26px rgba(20,34,58,.55);
+  }
+}
+:root[data-theme="light"] {
+  --void:      #E4E9F1;
+  --deep:      #EDF1F7;
+  --surface:   #FFFFFF;
+  --surface-2: #E8EEF7;
+  --line:      #CAD5E4;
+  --line-soft: #DCE4EF;
+  --text:      #0F1724;
+  --dim:       #56657C;
+  --faint:     #8695AC;
+  --brass:     #8A6512;
+  --brass-dim: #BFA05A;
+  --cyan:      #16697A;
+  --indigo:    #2A4E96;
+  --ember:     #A63C21;
+  --smoke-a:   #9DB8DC;
+  --smoke-b:   #A6CBD3;
+  --smoke-c:   #B4AEDA;
+  --smoke-op:  0.40;
+  --shadow:    0 14px 38px -26px rgba(20,34,58,.55);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: clamp(1rem, 0.96rem + 0.25vw, 1.0625rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── the smoke ──────────────────────────────────────────────────── */
+#smoke {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(22px) saturate(1.15);
+  opacity: var(--smoke-op);
+}
+#vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 0%, transparent 30%, var(--void) 100%),
+    radial-gradient(90% 60% at 50% 110%, transparent 40%, var(--void) 100%);
+  opacity: .8;
+}
+
+/* ── shell ──────────────────────────────────────────────────────── */
+.shell {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: 20px;
+  padding-block: clamp(2rem, 6vh, 4rem) 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  min-height: 100%;
+}
+
+/* ── type roles ─────────────────────────────────────────────────── */
+.label {
+  font-family: var(--f-mono);
+  font-size: .6875rem;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.genie {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 1.05rem + 1vw, 1.625rem);
+  line-height: 1.35;
+  text-wrap: balance;
+  color: var(--text);
+  margin: 0;
+}
+.genie em { color: var(--cyan); font-style: italic; }
+.ask {
+  font-family: var(--f-mono);
+  font-size: .8125rem;
+  letter-spacing: .05em;
+  color: var(--brass);
+  margin: 0;
+}
+.note { font-size: .9375rem; color: var(--dim); margin: 0; }
+
+/* ── rule ───────────────────────────────────────────────────────── */
+.rule {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  color: var(--line);
+}
+.rule::before, .rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+}
+.rule svg { width: 13px; height: 13px; flex: none; color: var(--brass-dim); }
+
+/* ── the vessel / orb ───────────────────────────────────────────── */
+.orbwrap { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.orb {
+  --fill: 0;
+  position: relative;
+  width: min(58vw, 208px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 38% 32%, color-mix(in srgb, var(--cyan) 26%, transparent), transparent 58%),
+    radial-gradient(circle at 62% 74%, color-mix(in srgb, var(--indigo) 34%, transparent), transparent 62%),
+    var(--surface);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  transition: transform .4s cubic-bezier(.2,.8,.3,1), border-color .3s;
+  box-shadow: inset 0 0 40px -10px color-mix(in srgb, var(--cyan) 30%, transparent), var(--shadow);
+}
+.orb:hover { border-color: var(--brass-dim); }
+.orb:active { transform: scale(.975); }
+.orb:focus-visible { outline: 2px solid var(--brass); outline-offset: 6px; }
+.orb::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: conic-gradient(from -90deg, var(--brass) calc(var(--fill) * 1turn), transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  pointer-events: none;
+}
+.orb-text {
+  font-family: var(--f-mono);
+  font-size: .625rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-align: center;
+  line-height: 1.8;
+  padding: 0 1.5rem;
+  pointer-events: none;
+}
+
+/* ── inputs ─────────────────────────────────────────────────────── */
+.field { display: flex; flex-direction: column; gap: .6rem; }
+input[type="text"], input[type="password"] {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--text);
+  font-family: var(--f-display);
+  font-size: 1.1875rem;
+  font-weight: 500;
+  padding: .85rem 1rem;
+  min-height: 52px;
+}
+input::placeholder { color: var(--faint); font-family: var(--f-body); font-weight: 400; font-style: italic; }
+input:focus-visible { outline: none; border-color: var(--brass); box-shadow: 0 0 0 3px color-mix(in srgb, var(--brass) 18%, transparent); }
+
+/* ── buttons ────────────────────────────────────────────────────── */
+.btn {
+  font-family: var(--f-mono);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--brass);
+  border: 1px solid var(--brass-dim);
+  border-radius: 2px;
+  padding: .85rem 1.25rem;
+  min-height: 48px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.btn:hover { background: color-mix(in srgb, var(--brass) 12%, transparent); border-color: var(--brass); }
+.btn:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+.btn.quiet { color: var(--dim); border-color: var(--line); }
+.btn.quiet:hover { color: var(--text); border-color: var(--faint); background: color-mix(in srgb, var(--text) 6%, transparent); }
+.btn.solid { background: var(--brass); color: var(--void); border-color: var(--brass); }
+.btn.solid:hover { background: color-mix(in srgb, var(--brass) 85%, #fff); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ── progress ───────────────────────────────────────────────────── */
+.progress { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+.pip {
+  width: 7px; height: 7px;
+  transform: rotate(45deg);
+  border: 1px solid var(--line);
+  transition: background .35s, border-color .35s;
+}
+.pip.done { background: var(--brass); border-color: var(--brass); }
+.pip.now  { border-color: var(--cyan); background: var(--cyan); }
+.pip.stage2 { border-radius: 50%; transform: none; }
+
+/* ── answers ────────────────────────────────────────────────────── */
+.answers { display: flex; flex-direction: column; gap: .5rem; }
+.answer {
+  display: flex;
+  gap: .85rem;
+  align-items: baseline;
+  width: 100%;
+  text-align: left;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--line-soft);
+  border-left: 2px solid var(--line);
+  border-radius: 2px;
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: .9rem 1rem;
+  min-height: 52px;
+  cursor: pointer;
+  transition: border-color .18s, background .18s, transform .18s;
+}
+.answer:hover { border-left-color: var(--brass); background: var(--surface-2); }
+.answer:active { transform: translateX(2px); }
+.answer:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.answer .k {
+  font-family: var(--f-mono);
+  font-size: .6875rem;
+  color: var(--faint);
+  flex: none;
+  padding-top: .15rem;
+}
+.answer:hover .k { color: var(--brass); }
+
+/* ── reveal ─────────────────────────────────────────────────────── */
+.spirit-name {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 1.4rem + 4.4vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  margin: 0;
+  text-wrap: balance;
+  background: linear-gradient(170deg, var(--text) 30%, var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.combo {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 1.1rem 1.15rem;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  transition: border-color .2s, background .2s;
+}
+.combo:hover { border-color: var(--brass); background: var(--surface-2); }
+.combo:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.combo-name {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(1.375rem, 1.1rem + 1.4vw, 1.75rem);
+  line-height: 1.12;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+  margin: 0 0 .5rem;
+  text-wrap: balance;
+}
+.combo-name .cls { color: var(--brass); }
+.combo-blurb { font-size: .9375rem; color: var(--dim); margin: 0; line-height: 1.5; }
+.combo-meta {
+  display: flex; flex-wrap: wrap; gap: .4rem .6rem;
+  margin-top: .75rem; align-items: center;
+}
+.tag {
+  font-family: var(--f-mono);
+  font-size: .625rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: .2rem .45rem;
+}
+.tag.ua { color: var(--ember); border-color: color-mix(in srgb, var(--ember) 45%, transparent); }
+
+/* ── aura spectrum ──────────────────────────────────────────────── */
+.spectrum { display: flex; flex-direction: column; gap: .3rem; }
+.spec-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr 2rem;
+  gap: .6rem;
+  align-items: center;
+  font-family: var(--f-mono);
+  font-size: .6875rem;
+  color: var(--dim);
+}
+.spec-bar { height: 5px; background: var(--line-soft); border-radius: 1px; overflow: hidden; }
+.spec-bar i { display: block; height: 100%; background: var(--indigo); }
+.spec-row:first-child .spec-bar i { background: var(--brass); }
+.spec-row:first-child { color: var(--text); }
+.spec-num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ── enrollment record ──────────────────────────────────────────── */
+.record {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.record-head {
+  padding: .7rem 1.1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+  display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+  flex-wrap: wrap;
+}
+.record-body { padding: 1.1rem; display: flex; flex-direction: column; gap: .85rem; }
+.rrow {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: .5rem 1rem;
+  align-items: baseline;
+  padding-bottom: .7rem;
+  border-bottom: 1px dashed var(--line-soft);
+}
+.rrow:last-child { border-bottom: 0; padding-bottom: 0; }
+.rrow dt {
+  font-family: var(--f-mono);
+  font-size: .625rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.rrow dd { margin: 0; font-size: .9375rem; }
+.rrow dd strong { font-family: var(--f-display); font-weight: 700; font-size: 1.0625rem; }
+@media (max-width: 360px) { .rrow { grid-template-columns: 1fr; gap: .15rem; } }
+
+/* ── admin ──────────────────────────────────────────────────────── */
+.roster { display: flex; flex-direction: column; gap: .5rem; }
+.rcard {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--cyan);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  border-radius: 2px;
+  padding: .8rem 1rem;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.rcard-top { display: flex; justify-content: space-between; gap: .75rem; align-items: baseline; flex-wrap: wrap; }
+.rcard-name { font-family: var(--f-display); font-weight: 700; font-size: 1.125rem; }
+.rcard-combo { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .06em; color: var(--brass); text-transform: uppercase; }
+.rcard-meta { font-family: var(--f-mono); font-size: .625rem; color: var(--faint); letter-spacing: .06em; display: flex; gap: .75rem; flex-wrap: wrap; }
+.rcard-del {
+  background: none; border: 0; color: var(--faint); cursor: pointer;
+  font-family: var(--f-mono); font-size: .625rem; letter-spacing: .1em;
+  text-transform: uppercase; padding: .25rem; margin: -.25rem;
+}
+.rcard-del:hover { color: var(--ember); }
+.live {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-family: var(--f-mono); font-size: .625rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--cyan);
+}
+.live::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan); animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .25 } }
+
+.stack { display: flex; flex-direction: column; gap: 1.1rem; }
+.row { display: flex; gap: .6rem; flex-wrap: wrap; }
+.row > .btn { flex: 1 1 auto; }
+.fade { animation: fade .45s ease both; }
+@keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.foot {
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex; justify-content: space-between; gap: 1rem; align-items: center;
+  font-family: var(--f-mono); font-size: .625rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--faint);
+}
+.foot a, .linkish {
+  color: var(--faint); text-decoration: none; border-bottom: 1px solid var(--line);
+  background: none; border-top: 0; border-left: 0; border-right: 0;
+  font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; padding: 0;
+}
+.foot a:hover, .linkish:hover { color: var(--brass); border-color: var(--brass); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+
+<canvas id="smoke" aria-hidden="true"></canvas>
+<div id="vignette" aria-hidden="true"></div>
+
+<main class="shell">
+
+  <!-- ══ GATE ══════════════════════════════════════════════════ -->
+  <section id="gate" class="stack">
+    <div class="stack" style="gap:.6rem">
+      <p class="label">Welcome to the Academy &middot; Aptitude Reading</p>
+      <p class="genie">There is a lamp on the table, and something inside it is awake. It does not introduce itself. It rarely does.</p>
+      <p class="note"><em>&ldquo;Before I look at you properly &mdash; and I will look properly &mdash; I would like to know what to call you.&rdquo;</em></p>
+    </div>
+
+    <div class="field">
+      <label class="ask" for="pname">What is your name, future hero?</label>
+      <input type="text" id="pname" placeholder="Speak it, or write it here" autocomplete="off" maxlength="40" spellcheck="false">
+    </div>
+
+    <div class="rule"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0l2.2 7.1L21 4l-3.1 6.8L24 12l-6.1 1.2L21 20l-6.8-3.1L12 24l-2.2-7.1L3 20l3.1-6.8L0 12l6.1-1.2L3 4l6.8 3.1z"/></svg></div>
+
+    <div class="orbwrap">
+      <button class="orb" id="orb" aria-describedby="orbhint">
+        <span class="orb-text" id="orbtext">Press and hold<br>the vessel</span>
+      </button>
+      <p class="label" id="orbhint" style="text-align:center">Fourteen questions &middot; about four minutes</p>
+    </div>
+
+    <div class="foot">
+      <button class="linkish" id="proctor" type="button">Proctor</button>
+      <button class="linkish" id="themetoggle" type="button">Light</button>
+    </div>
+  </section>
+
+  <!-- ══ QUIZ ══════════════════════════════════════════════════ -->
+  <section id="quiz" class="stack" hidden>
+    <div class="stack" style="gap:.75rem">
+      <div class="progress" id="progress" role="progressbar" aria-label="Reading progress"></div>
+      <p class="label" id="qtitle">&mdash;</p>
+    </div>
+    <p class="genie" id="qprompt">&mdash;</p>
+    <p class="ask" id="qask">&mdash;</p>
+    <div class="answers" id="answers"></div>
+    <div class="foot">
+      <button class="linkish" id="restart1" type="button">Start over</button>
+      <span id="qcount">&mdash;</span>
+    </div>
+  </section>
+
+  <!-- ══ REVEAL ════════════════════════════════════════════════ -->
+  <section id="reveal" class="stack" hidden>
+    <div class="stack" style="gap:.5rem">
+      <p class="label" id="revlabel">The reading is finished</p>
+      <h1 class="spirit-name" id="spiritname">&mdash;</h1>
+      <p class="note" id="spiritline">&mdash;</p>
+    </div>
+
+    <p class="genie" id="classreading">&mdash;</p>
+
+    <div class="rule"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0l2.2 7.1L21 4l-3.1 6.8L24 12l-6.1 1.2L21 20l-6.8-3.1L12 24l-2.2-7.1L3 20l3.1-6.8L0 12l6.1-1.2L3 4l6.8 3.1z"/></svg></div>
+
+    <p class="ask" id="choosehint">Three vessels will hold a spirit like yours. Choose one.</p>
+    <div class="stack" style="gap:.6rem" id="combos"></div>
+
+    <details class="stack" style="gap:.6rem">
+      <summary class="label" style="cursor:pointer">How your aura fell</summary>
+      <div class="spectrum" id="spectrum"></div>
+    </details>
+
+    <div class="foot">
+      <button class="linkish" id="restart2" type="button">Read another aura</button>
+    </div>
+  </section>
+
+  <!-- ══ RECORD ════════════════════════════════════════════════ -->
+  <section id="record" class="stack" hidden>
+    <div class="stack" style="gap:.5rem">
+      <p class="label">Enrolment record &middot; filed</p>
+      <h1 class="spirit-name" id="finalname">&mdash;</h1>
+    </div>
+    <p class="genie" id="finalword">&mdash;</p>
+
+    <div class="record">
+      <div class="record-head">
+        <span class="label" style="color:var(--brass)">The Academy</span>
+        <span class="label" id="recid">&mdash;</span>
+      </div>
+      <dl class="record-body" id="recbody"></dl>
+    </div>
+
+    <div class="row">
+      <button class="btn solid" id="copyrec" type="button">Copy record</button>
+      <button class="btn quiet" id="restart3" type="button">Read another aura</button>
+    </div>
+
+    <p class="label" id="savedstate" style="text-align:center">&nbsp;</p>
+
+    <div class="foot">
+      <span>Show this to your Dungeon Master</span>
+    </div>
+  </section>
+
+  <!-- ══ ADMIN ═════════════════════════════════════════════════ -->
+  <section id="admin" class="stack" hidden>
+    <div class="stack" style="gap:.5rem">
+      <p class="label">Restricted &middot; Proctor's office</p>
+      <h1 class="spirit-name" style="font-size:clamp(1.75rem,1.3rem+2vw,2.5rem)">The Roster</h1>
+    </div>
+
+    <div id="adminlock" class="stack">
+      <p class="note">The lamp keeps its own records. Say the word.</p>
+      <div class="field">
+        <label class="ask" for="adminpw">Proctor's word</label>
+        <input type="password" id="adminpw" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password">
+      </div>
+      <div class="row">
+        <button class="btn solid" id="adminenter" type="button">Enter</button>
+        <button class="btn quiet" id="adminback" type="button">Back to the quiz</button>
+      </div>
+      <p class="label" id="adminerr" style="color:var(--ember)">&nbsp;</p>
+    </div>
+
+    <div id="adminpanel" class="stack" hidden>
+      <div class="rcard-top">
+        <span class="live" id="adminlive">Listening</span>
+        <span class="label" id="admincount">&mdash;</span>
+      </div>
+      <div class="roster" id="roster"></div>
+      <div class="row">
+        <button class="btn quiet" id="copyall" type="button">Copy all</button>
+        <button class="btn quiet" id="adminback2" type="button">Back to the quiz</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="aura-data.js"></script>
+<script>
+(() => {
+  "use strict";
+
+  const ADMIN_WORD = "TheDnd2026LAb##";
+  const $ = (id) => document.getElementById(id);
+
+  /* ════════════════════════════════════════════════════════════
+     BLUE SMOKE
+     Rendered at a fraction of viewport size and CSS-blurred, so a
+     phone draws a handful of cheap radial blobs per frame.
+     ════════════════════════════════════════════════════════════ */
+  (function smoke() {
+    const cv = $("smoke");
+    const ctx = cv.getContext("2d");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const SCALE = 0.18;
+    let w = 0, h = 0, puffs = [], raf = 0;
+
+    const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+    function size() {
+      w = cv.width = Math.max(2, Math.ceil(innerWidth * SCALE));
+      h = cv.height = Math.max(2, Math.ceil(innerHeight * SCALE));
+    }
+
+    function seed() {
+      const cols = [css("--smoke-a"), css("--smoke-b"), css("--smoke-c")];
+      puffs = Array.from({ length: 11 }, (_, i) => ({
+        x: Math.random(),
+        y: Math.random(),
+        r: 0.28 + Math.random() * 0.42,
+        vx: (Math.random() - 0.5) * 0.00016,
+        vy: -0.00008 - Math.random() * 0.00016,
+        ph: Math.random() * Math.PI * 2,
+        sp: 0.0003 + Math.random() * 0.0005,
+        col: cols[i % cols.length]
+      }));
+    }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = "lighter";
+      const d = Math.min(w, h);
+      for (const p of puffs) {
+        const x = (p.x + Math.sin(t * p.sp + p.ph) * 0.05) * w;
+        const y = ((p.y % 1) + 1) % 1 * h;
+        const r = p.r * d;
+        const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, p.col);
+        g.addColorStop(1, "transparent");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    function tick(t) {
+      for (const p of puffs) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -0.4) p.x = 1.4; if (p.x > 1.4) p.x = -0.4;
+        if (p.y < -0.4) p.y = 1.4;
+      }
+      draw(t);
+      raf = requestAnimationFrame(tick);
+    }
+
+    function start() {
+      size(); seed();
+      cancelAnimationFrame(raf);
+      if (reduce) draw(0); else raf = requestAnimationFrame(tick);
+    }
+
+    let rs;
+    addEventListener("resize", () => { clearTimeout(rs); rs = setTimeout(start, 200); });
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => setTimeout(start, 50));
+    document.addEventListener("themechange", () => setTimeout(start, 50));
+    start();
+  })();
+
+  /* ── theme toggle ─────────────────────────────────────────── */
+  const themeBtn = $("themetoggle");
+  function currentTheme() {
+    return document.documentElement.getAttribute("data-theme")
+      || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  }
+  function syncThemeLabel() {
+    themeBtn.textContent = currentTheme() === "dark" ? "Light" : "Dark";
+  }
+  themeBtn.addEventListener("click", () => {
+    document.documentElement.setAttribute("data-theme", currentTheme() === "dark" ? "light" : "dark");
+    syncThemeLabel();
+    document.dispatchEvent(new Event("themechange"));
+  });
+  syncThemeLabel();
+
+  /* ════════════════════════════════════════════════════════════
+     STATE
+     ════════════════════════════════════════════════════════════ */
+  const state = {
+    name: "",
+    queue: [],        // questions still to ask
+    idx: 0,
+    total: 0,
+    classScores: {},
+    motifScores: {},
+    tiebroken: false,
+    result: null
+  };
+
+  const SECTIONS = ["gate", "quiz", "reveal", "record", "admin"];
+  function show(which) {
+    SECTIONS.forEach((s) => { $(s).hidden = (s !== which); });
+    const el = $(which);
+    el.classList.remove("fade");
+    void el.offsetWidth;
+    el.classList.add("fade");
+    scrollTo({ top: 0, behavior: "instant" in document.body.style ? "instant" : "auto" });
+  }
+
+  const withName = (s) => String(s).replace(/\{name\}/g, state.name || "friend");
+
+  function addScores(target, score) {
+    for (const k in score) target[k] = (target[k] || 0) + score[k];
+  }
+
+  function ranked(scores, keys) {
+    return keys
+      .map((k) => ({ k, v: scores[k] || 0 }))
+      .sort((a, b) => b.v - a.v || a.k.localeCompare(b.k));
+  }
+
+  /* cosine similarity between the player's motif vector and a subclass's tags */
+  function affinity(tags, motifs) {
+    let dot = 0, na = 0, nb = 0;
+    for (const m in tags) { dot += tags[m] * (motifs[m] || 0); na += tags[m] * tags[m]; }
+    for (const m in motifs) nb += motifs[m] * motifs[m];
+    if (!na || !nb) return 0;
+    return dot / (Math.sqrt(na) * Math.sqrt(nb));
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     THE VESSEL — press and hold to begin
+     ════════════════════════════════════════════════════════════ */
+  let resetOrb = () => {};
+
+  (function holdToBegin() {
+    const orb = $("orb");
+    const txt = $("orbtext");
+    const HOLD = 1100;
+    let t0 = 0, raf = 0, done = false;
+
+    const setFill = (v) => orb.style.setProperty("--fill", v.toFixed(3));
+
+    function frame(now) {
+      const p = Math.min(1, (now - t0) / HOLD);
+      setFill(p);
+      if (p >= 1) { finish(); return; }
+      raf = requestAnimationFrame(frame);
+    }
+    function begin(e) {
+      if (done) return;
+      if (e && e.type === "pointerdown") e.preventDefault();
+      const nm = $("pname").value.trim();
+      if (!nm) {
+        txt.innerHTML = "Your name<br>first";
+        $("pname").focus();
+        return;
+      }
+      txt.innerHTML = "Hold&hellip;";
+      t0 = performance.now();
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(frame);
+    }
+    function cancel() {
+      if (done) return;
+      cancelAnimationFrame(raf);
+      setFill(0);
+      txt.innerHTML = "Press and hold<br>the vessel";
+    }
+    function finish() {
+      done = true;
+      setFill(1);
+      txt.innerHTML = "&hellip;ah.";
+      state.name = $("pname").value.trim().slice(0, 40);
+      setTimeout(startQuiz, 420);
+    }
+
+    orb.addEventListener("pointerdown", begin);
+    orb.addEventListener("pointerup", cancel);
+    orb.addEventListener("pointerleave", cancel);
+    orb.addEventListener("pointercancel", cancel);
+    orb.addEventListener("keydown", (e) => {
+      if ((e.key === " " || e.key === "Enter") && !e.repeat) { e.preventDefault(); begin(); }
+    });
+    orb.addEventListener("keyup", (e) => { if (e.key === " " || e.key === "Enter") cancel(); });
+
+    $("pname").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") { e.preventDefault(); orb.focus(); }
+    });
+
+    resetOrb = () => { done = false; cancel(); };
+  })();
+
+  /* ════════════════════════════════════════════════════════════
+     THE READING
+     ════════════════════════════════════════════════════════════ */
+  function startQuiz() {
+    state.queue = QUESTIONS.map((q) => ({ q, stage: 1 }));
+    state.idx = 0;
+    state.total = QUESTIONS.length + MOTIF_QUESTIONS.length;
+    state.classScores = {};
+    state.motifScores = {};
+    state.tiebroken = false;
+    show("quiz");
+    renderQuestion();
+  }
+
+  function renderProgress() {
+    const bar = $("progress");
+    bar.innerHTML = "";
+    for (let i = 0; i < state.queue.length; i++) {
+      const pip = document.createElement("span");
+      pip.className = "pip" + (state.queue[i].stage === 2 ? " stage2" : "");
+      if (i < state.idx) pip.classList.add("done");
+      else if (i === state.idx) pip.classList.add("now");
+      bar.appendChild(pip);
+    }
+    bar.setAttribute("aria-valuenow", String(state.idx));
+    bar.setAttribute("aria-valuemax", String(state.queue.length));
+  }
+
+  function renderQuestion() {
+    const item = state.queue[state.idx];
+    if (!item) { finishReading(); return; }
+    const q = item.q;
+
+    renderProgress();
+    $("qtitle").textContent = q.title;
+    $("qprompt").textContent = withName(q.prompt);
+    $("qask").textContent = withName(q.ask);
+    $("qcount").textContent = (state.idx + 1) + " / " + state.queue.length;
+
+    const box = $("answers");
+    box.innerHTML = "";
+    q.answers.forEach((a, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "answer";
+      const k = document.createElement("span");
+      k.className = "k";
+      k.textContent = String.fromCharCode(65 + i);
+      const t = document.createElement("span");
+      t.textContent = a.text;
+      b.append(k, t);
+      b.addEventListener("click", () => answer(item, a));
+      box.appendChild(b);
+    });
+
+    const card = $("quiz");
+    card.classList.remove("fade");
+    void card.offsetWidth;
+    card.classList.add("fade");
+  }
+
+  function answer(item, a) {
+    addScores(item.stage === 1 ? state.classScores : state.motifScores, a.score);
+    state.idx++;
+
+    // After the ten class questions: insert a tiebreaker if the reading
+    // cannot cleanly separate three vessels, then the motif questions.
+    if (item.stage === 1 && state.idx === QUESTIONS.length) {
+      const r = ranked(state.classScores, Object.keys(CLASSES));
+      const muddy = (r[0].v - r[1].v) < 1 || (r[2].v - r[3].v) < 1;
+      if (muddy && !state.tiebroken) {
+        state.tiebroken = true;
+        state.queue.push({ q: TIEBREAKER, stage: 1 });
+      }
+      MOTIF_QUESTIONS.forEach((q) => state.queue.push({ q, stage: 2 }));
+    }
+    renderQuestion();
+  }
+
+  function finishReading() {
+    const classRank = ranked(state.classScores, Object.keys(CLASSES));
+    const top3 = classRank.slice(0, 3);
+    const motifRank = ranked(state.motifScores, Object.keys(MOTIFS));
+    const motifKey = motifRank[0].k;
+    const motif = MOTIFS[motifKey];
+
+    const combos = top3.map(({ k: classId }) => {
+      const list = SUBCLASSES[classId];
+      const best = list
+        .map((s) => ({ s, a: affinity(s.tags, state.motifScores) }))
+        .sort((x, y) => y.a - x.a)[0].s;
+      return { classId, cls: CLASSES[classId], sub: best };
+    });
+
+    state.result = { motifKey, motif, combos, classRank, motifRank };
+    renderReveal();
+  }
+
+  /* ── reveal ───────────────────────────────────────────────── */
+  function renderReveal() {
+    const { motif, combos, classRank } = state.result;
+
+    $("revlabel").textContent = "The reading is finished, " + state.name;
+    $("spiritname").textContent = "Your spirit is " + motif.name;
+    $("spiritline").textContent = motif.line;
+    $("classreading").textContent = withName(combos[0].cls.reading);
+    $("choosehint").textContent = "Three vessels will hold a spirit like yours. Choose one, " + state.name + ".";
+
+    const box = $("combos");
+    box.innerHTML = "";
+    combos.forEach((c, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "combo";
+
+      const h = document.createElement("p");
+      h.className = "combo-name";
+      h.append(c.sub.short + " ");
+      const cls = document.createElement("span");
+      cls.className = "cls";
+      cls.textContent = c.cls.name;
+      h.appendChild(cls);
+
+      const blurb = document.createElement("p");
+      blurb.className = "combo-blurb";
+      blurb.textContent = c.sub.blurb;
+
+      const meta = document.createElement("div");
+      meta.className = "combo-meta";
+      const src = document.createElement("span");
+      src.className = "tag" + (c.sub.src === "UA" ? " ua" : "");
+      src.textContent = c.sub.src;
+      src.title = SOURCES[c.sub.src] || c.sub.src;
+      meta.appendChild(src);
+      const rank = document.createElement("span");
+      rank.className = "tag";
+      rank.textContent = i === 0 ? "Strongest pull" : "Also true";
+      meta.appendChild(rank);
+      if (c.sub.note) {
+        const n = document.createElement("span");
+        n.className = "tag";
+        n.textContent = "Revised in UA";
+        n.title = c.sub.note;
+        meta.appendChild(n);
+      }
+
+      b.append(h, blurb, meta);
+      b.addEventListener("click", () => choose(c));
+      box.appendChild(b);
+    });
+
+    const spec = $("spectrum");
+    spec.innerHTML = "";
+    const max = classRank[0].v || 1;
+    classRank.slice(0, 6).forEach(({ k, v }) => {
+      const row = document.createElement("div");
+      row.className = "spec-row";
+      const nm = document.createElement("span");
+      nm.textContent = CLASSES[k].name;
+      const bar = document.createElement("span");
+      bar.className = "spec-bar";
+      const fill = document.createElement("i");
+      fill.style.width = Math.round((v / max) * 100) + "%";
+      bar.appendChild(fill);
+      const num = document.createElement("span");
+      num.className = "spec-num";
+      num.textContent = v;
+      row.append(nm, bar, num);
+      spec.appendChild(row);
+    });
+
+    show("reveal");
+  }
+
+  /* ── record ───────────────────────────────────────────────── */
+  function choose(combo) {
+    const { motif, motifKey, classRank } = state.result;
+    const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+    const record = {
+      id,
+      name: state.name,
+      classId: combo.classId,
+      className: combo.cls.name,
+      subclassId: combo.sub.id,
+      subclassName: combo.sub.name,
+      comboShort: (combo.sub.short + " " + combo.cls.name).toUpperCase(),
+      source: combo.sub.src,
+      motif: motifKey,
+      motifName: motif.name,
+      alternates: state.result.combos
+        .filter((c) => c !== combo)
+        .map((c) => c.sub.short + " " + c.cls.name),
+      scores: classRank.slice(0, 5).map((r) => CLASSES[r.k].name + " " + r.v).join(", "),
+      createdAt: new Date().toISOString()
+    };
+    state.record = record;
+
+    $("finalname").textContent = record.comboShort;
+    $("finalword").textContent = "Then it is settled, " + state.name +
+      ". The lamp has written it down, and the lamp does not misplace things.";
+    $("recid").textContent = "№ " + id.slice(-6).toUpperCase();
+
+    const rows = [
+      ["Name", "<strong>" + esc(record.name) + "</strong>"],
+      ["Class", "<strong>" + esc(record.className) + "</strong>"],
+      ["Subclass", "<strong>" + esc(record.subclassName) + "</strong>"],
+      ["Source", esc(SOURCES[record.source] || record.source)],
+      ["Spirit", esc(record.motifName)],
+      ["Also true", esc(record.alternates.join(" &middot; ").replace(/&middot;/g, "·"))],
+      ["Filed", new Date(record.createdAt).toLocaleString()]
+    ];
+    $("recbody").innerHTML = rows
+      .map(([k, v]) => "<div class='rrow'><dt>" + k + "</dt><dd>" + v + "</dd></div>")
+      .join("");
+
+    show("record");
+    saveRecord(record);
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  function recordText(r) {
+    return [
+      "THE ACADEMY — ENROLMENT RECORD",
+      "Name:     " + r.name,
+      "Class:    " + r.className,
+      "Subclass: " + r.subclassName + " (" + r.source + ")",
+      "Spirit:   " + r.motifName,
+      "Also:     " + r.alternates.join(" · "),
+      "Filed:    " + new Date(r.createdAt).toLocaleString()
+    ].join("\n");
+  }
+
+  $("copyrec").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(recordText(state.record));
+      $("copyrec").textContent = "Copied";
+      setTimeout(() => { $("copyrec").textContent = "Copy record"; }, 1800);
+    } catch {
+      $("savedstate").textContent = "Copying is blocked here — screenshot it instead.";
+    }
+  });
+
+  /* ════════════════════════════════════════════════════════════
+     THE LAMP'S OWN RECORDS  (artifact database)
+     The quiz works with or without it; the roster lights up only
+     when this view can actually run db.
+     ════════════════════════════════════════════════════════════ */
+  let dbp = null;
+  const getDb = () => (dbp = dbp || (window.claude?.use ? window.claude.use("db") : Promise.resolve(null)));
+
+  async function saveRecord(r) {
+    const note = $("savedstate");
+    let db = null;
+    try { db = await getDb(); } catch { db = null; }
+    if (!db) { note.textContent = "Show this to your DM, or copy it across."; return; }
+    try {
+      await db.collection("characters").doc(r.id).set(r);
+      note.textContent = "Filed with the Academy. Your DM can already see it.";
+    } catch (e) {
+      note.textContent = e && e.code === "quota_exceeded"
+        ? "The Academy's files are full — tell your DM."
+        : "Could not file it. Copy the record across instead.";
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     ADMIN
+     A word typed into a page is a doorbell, not a lock — anyone
+     who reads the source can read this. It keeps players out of
+     the roster by accident, which is all it is for.
+     ════════════════════════════════════════════════════════════ */
+  let rosterUnsub = null;
+  let rosterRows = [];
+
+  /* The page runs inside an iframe on claude.ai, so a "#admin" typed onto
+     the artifact URL is swallowed by the wrapper page and never reaches
+     `location.hash` here. The Proctor button is the reliable door; the
+     hash is still honoured for when the file is opened directly. */
+  function openAdmin() {
+    show("admin");
+    $("adminpw").focus();
+  }
+
+  function routeFromHash() {
+    if (location.hash.toLowerCase().replace(/^#\/?/, "") === "admin") openAdmin();
+  }
+
+  $("proctor").addEventListener("click", openAdmin);
+
+  // Typing "proctor" anywhere on the gate also opens it, for a DM who
+  // would rather the button were not pointed at during a session.
+  (function secretWord() {
+    const word = "proctor";
+    let buf = "";
+    addEventListener("keydown", (e) => {
+      if ($("gate").hidden) return;
+      if (document.activeElement === $("pname")) return;
+      if (e.key.length !== 1) return;
+      buf = (buf + e.key.toLowerCase()).slice(-word.length);
+      if (buf === word) { buf = ""; openAdmin(); }
+    });
+  })();
+
+  $("adminenter").addEventListener("click", tryAdmin);
+  $("adminpw").addEventListener("keydown", (e) => { if (e.key === "Enter") tryAdmin(); });
+
+  function tryAdmin() {
+    if ($("adminpw").value !== ADMIN_WORD) {
+      $("adminerr").textContent = "The lamp does not recognise that word.";
+      $("adminpw").select();
+      return;
+    }
+    $("adminerr").textContent = " ";
+    $("adminlock").hidden = true;
+    $("adminpanel").hidden = false;
+    openRoster();
+  }
+
+  async function openRoster() {
+    const live = $("adminlive");
+    const list = $("roster");
+    let db = null;
+    try { db = await getDb(); } catch { db = null; }
+
+    if (!db) {
+      live.textContent = "No connection";
+      live.style.color = "var(--ember)";
+      list.innerHTML = "<p class='note'>This view cannot reach the Academy's files. " +
+        "The roster needs the artifact's database, which only signed-in members of your " +
+        "workspace can use.</p>";
+      return;
+    }
+
+    if (rosterUnsub) rosterUnsub();
+    rosterUnsub = db.collection("characters")
+      .orderBy("createdAt", "desc")
+      .limit(200)
+      .onSnapshot(
+        (snap) => {
+          rosterRows = snap.docs.map((d) => d.data()).filter(Boolean);
+          drawRoster(db);
+        },
+        (err) => {
+          live.textContent = "Listening stopped";
+          live.style.color = "var(--ember)";
+          list.innerHTML = "<p class='note'>The connection dropped (" + esc(err.code) +
+            "). Reload the page to start listening again.</p>";
+        }
+      );
+  }
+
+  function drawRoster(db) {
+    const list = $("roster");
+    $("admincount").textContent = rosterRows.length +
+      (rosterRows.length === 1 ? " character" : " characters");
+    list.innerHTML = "";
+
+    if (!rosterRows.length) {
+      list.innerHTML = "<p class='note'>Nobody has been read yet. " +
+        "Send your players the link and they will appear here as they finish.</p>";
+      return;
+    }
+
+    rosterRows.forEach((r) => {
+      const card = document.createElement("div");
+      card.className = "rcard";
+
+      const top = document.createElement("div");
+      top.className = "rcard-top";
+      const nm = document.createElement("span");
+      nm.className = "rcard-name";
+      nm.textContent = r.name || "Unnamed";
+      const del = document.createElement("button");
+      del.className = "rcard-del";
+      del.type = "button";
+      del.textContent = "Remove";
+      del.addEventListener("click", async () => {
+        if (!confirm("Remove " + (r.name || "this character") + " from the roster?")) return;
+        try { await db.collection("characters").doc(r.id).delete(); } catch {}
+      });
+      top.append(nm, del);
+
+      const combo = document.createElement("div");
+      combo.className = "rcard-combo";
+      combo.textContent = r.comboShort || "";
+
+      const sub = document.createElement("div");
+      sub.className = "note";
+      sub.style.fontSize = ".875rem";
+      sub.textContent = (r.subclassName || "") + " · " + (r.className || "");
+
+      const meta = document.createElement("div");
+      meta.className = "rcard-meta";
+      [
+        r.motifName || "",
+        r.source ? (SOURCES[r.source] || r.source) : "",
+        r.createdAt ? new Date(r.createdAt).toLocaleString() : ""
+      ].filter(Boolean).forEach((txt) => {
+        const s = document.createElement("span");
+        s.textContent = txt;
+        meta.appendChild(s);
+      });
+
+      card.append(top, combo, sub, meta);
+      if (r.alternates && r.alternates.length) {
+        const alt = document.createElement("div");
+        alt.className = "rcard-meta";
+        const s = document.createElement("span");
+        s.textContent = "Passed over: " + r.alternates.join(" · ");
+        alt.appendChild(s);
+        card.appendChild(alt);
+      }
+      list.appendChild(card);
+    });
+  }
+
+  $("copyall").addEventListener("click", async () => {
+    const text = rosterRows.map(recordText).join("\n\n");
+    try {
+      await navigator.clipboard.writeText(text || "No characters yet.");
+      $("copyall").textContent = "Copied";
+      setTimeout(() => { $("copyall").textContent = "Copy all"; }, 1800);
+    } catch { /* clipboard blocked; nothing useful to do */ }
+  });
+
+  function leaveAdmin() {
+    if (rosterUnsub) { rosterUnsub(); rosterUnsub = null; }
+    try { history.replaceState(null, "", location.pathname + location.search); } catch {}
+    show("gate");
+  }
+  $("adminback").addEventListener("click", leaveAdmin);
+  $("adminback2").addEventListener("click", leaveAdmin);
+
+  /* ── restarts ─────────────────────────────────────────────── */
+  function restart() {
+    state.name = "";
+    state.result = null;
+    state.record = null;
+    state.queue = [];
+    state.idx = 0;
+    state.classScores = {};
+    state.motifScores = {};
+    state.tiebroken = false;
+    $("pname").value = "";
+    $("savedstate").textContent = " ";
+    resetOrb();
+    show("gate");
+    $("pname").focus();
+  }
+  ["restart1", "restart2", "restart3"].forEach((id) =>
+    $(id).addEventListener("click", restart));
+
+  addEventListener("hashchange", routeFromHash);
+  routeFromHash();
+})();
+</script>

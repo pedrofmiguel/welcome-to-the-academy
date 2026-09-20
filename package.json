@@ -1,0 +1,25 @@
+{
+  "name": "welcome-to-the-academy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An aura-reading genie that sorts D&D players into a class and subclass.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "sync:artifact": "node scripts/sync-artifact.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}
