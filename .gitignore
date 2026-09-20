@@ -19,3 +19,6 @@ next-env.d.ts
 
 dev-out.log
 dev-err.log
+
+.vercel
+.env*
