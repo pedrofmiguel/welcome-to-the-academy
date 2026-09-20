@@ -16,3 +16,6 @@ yarn-error.log*
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+dev-out.log
+dev-err.log

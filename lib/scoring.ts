@@ -7,16 +7,16 @@ import {
   SUBCLASSES,
   SOURCES,
 } from "./quiz-data.js";
-import type { ClassInfo, Motif, Question, Subclass } from "./types";
+import type { ClassInfo, Motif, Subclass } from "./types";
 
-/* The data file is plain JS; give it shape on the way in. */
-export const classes = CLASSES as Record<string, ClassInfo>;
-export const questions = QUESTIONS as Question[];
-export const tiebreaker = TIEBREAKER as Question;
-export const motifs = MOTIFS as Record<string, Motif>;
-export const motifQuestions = MOTIF_QUESTIONS as Question[];
-export const subclasses = SUBCLASSES as Record<string, Subclass[]>;
-export const sources = SOURCES as Record<string, string>;
+/* Typed by lib/quiz-data.d.ts — no casting needed. */
+export const classes = CLASSES;
+export const questions = QUESTIONS;
+export const tiebreaker = TIEBREAKER;
+export const motifs = MOTIFS;
+export const motifQuestions = MOTIF_QUESTIONS;
+export const subclasses = SUBCLASSES;
+export const sources = SOURCES;
 
 export type Scores = Record<string, number>;
 
